@@ -301,7 +301,7 @@
       return;
     }
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]; // KST 기준
 
     // 오늘 이미 본 기록 확인
     const { data: log } = await db
@@ -331,7 +331,7 @@
       const { data: all } = await db.from('fortunes').select('*');
       fortuneData = all[Math.floor(Math.random() * all.length)];
     } else {
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]; // KST 기준
 
       // 카드 등록 (없으면 새로 추가)
       await db.from('cards').upsert({ id: cardId }, { onConflict: 'id', ignoreDuplicates: true });
